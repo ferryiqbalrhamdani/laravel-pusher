@@ -19,10 +19,10 @@
                             name: 'conversation.show',
                             params: { id: people.id },
                         }"
-                        class="flex items-center"
+                        class="flex justify-center items-center"
                     >
                         <img class="rounded-full object-cover h-14 w-14" :src="require('@/assets/' + people.avatar)" />
-                        <div class="ml-3 flex justify-between items-center w-full">
+                        <div class="ml-3 lg:flex justify-between items-center w-full hidden lg:visible">
                             <div class="space-y-1">
                                 <h3 class="font-medium text-gray-800">{{ people.name }}</h3>
                                 <p class="text-sm text-gray-400">Lorem ipsum dolo...</p>
