@@ -59,9 +59,9 @@ export default {
             this.users = data.data
         },
 
-        logout() {
-            axios.post('api/logout')
-            this.$router.push('/login')
+        async logout() {
+            await axios.post('api/logout')
+            window.location.reload()
         },
     },
 }
