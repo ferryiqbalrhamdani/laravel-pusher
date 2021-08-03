@@ -20,7 +20,7 @@
                 <!-- END OTHERS CHAT -->
             </div>
 
-            <div class="w-full h-full flex items-center justify-center">
+            <!-- <div class="w-full h-full flex items-center justify-center" v-else>
                 <div class="flex flex-col items-center">
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-24 w-24 stroke-current text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -34,7 +34,7 @@
                     </span>
                     <h1 class="mt-5 text-xl font-medium text-gray-400">Obrolan belum ada, silahkan memulai obrolan</h1>
                 </div>
-            </div>
+            </div> -->
         </div>
 
         <div class="absolute w-full bottom-0 left-0 right-0 p-8">
@@ -59,5 +59,13 @@
 </template>
 
 <script>
-export default {}
+import { mapGetters } from 'vuex'
+
+export default {
+    computed: {
+        ...mapGetters({
+            user: 'auth/user',
+        }),
+    },
+}
 </script>
