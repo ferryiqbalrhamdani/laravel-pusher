@@ -7,6 +7,8 @@ use App\Http\Controllers\Auth\AuthController;
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
+    Route::post('/logout', [AuthController::class, 'logout']);
+
     Route::get('me', MeController::class);
 
     Route::get('user', [UserController::class, 'index']);

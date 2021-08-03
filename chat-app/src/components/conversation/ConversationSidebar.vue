@@ -9,6 +9,7 @@
             </div>
             <div class="text-center mt-4">
                 <h1 class="text-lg font-medium text-gray-800">{{ user.name }}</h1>
+                <button class="bg-red-400 hover:bg-red-600 text-sm text-white rounded-md px-6 py-2 border mt-4" @click="logout">Logout</button>
             </div>
             <hr class="my-4" />
             <h2 class="font-medium text-gray-700 mb-6 text-center">Chats</h2>
@@ -56,6 +57,11 @@ export default {
         async fetchUsers() {
             let { data } = await axios.get('api/user')
             this.users = data.data
+        },
+
+        logout() {
+            axios.post('api/logout')
+            this.$router.push('/login')
         },
     },
 }
