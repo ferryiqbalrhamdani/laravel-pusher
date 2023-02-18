@@ -97,7 +97,7 @@ export default {
     },
 
     mounted() {
-        window.Echo.channel('message').listen('MessageCreated', (event) => {
+        window.Echo.channel('message.' + this.conversation.id).listen('MessageCreated', (event) => {
             console.log('Berhasil Listen')
 
             this.conversation.messages.push({body: event.message.body})
