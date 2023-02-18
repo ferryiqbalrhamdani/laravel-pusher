@@ -5,7 +5,13 @@
             <h2 class="ml-3 font-medium text-gray-800">{{current_user.name}}</h2>
         </div>
 
-        <div class="mt-6 w-full h-3/4 overflow-auto scroller" >
+        <div class="h-3/4 flex items-center" v-if="isLoading">
+            <vue-loading type="bars" color="#d9544e" :size="{width: '50px', height: '50px'}"></vue-loading>
+
+        </div>
+
+
+        <div class="mt-6 w-full h-3/4 overflow-auto scroller" v-else >
             <div v-if="conversation.messages.length">
                 <div v-for="message in conversation.messages" :key="message.id">
                     <!-- START YOUR CHAT -->
@@ -65,8 +71,14 @@
 <script>
 import { mapGetters } from 'vuex'
 import axios from 'axios'
+import {VueLoading} from 'vue-loading-template'
 
 export default {
+    components: {
+        VueLoading,
+    },
+
+
     computed: {
         ...mapGetters({
             user: 'auth/user',
@@ -79,16 +91,25 @@ export default {
             conversation: '',
 
             newMessage: '',
+
+            isLoading: true,
         }
     },
 
     mounted() {
+        window.Echo.channel('message').listen('MessageCreated', (event) => {
+            console.log('Berhasil Listen')
+
+            this.conversation.messages.push({body: event.message.body})
+        })
+
         this.fetchCurrentUser(this.$route.params.id)
         this.fetchConversation(this.$route.params.id)
     },
 
     methods: {
         async fetchCurrentUser(id) {
+            this.isLoading = true
             await axios.get(`api/user/${id}`).then(({data}) => {
                 this.current_user = data.data
 
@@ -99,6 +120,8 @@ export default {
             await axios.get(`api/conversation/${id}`).then(({data}) => {
                 this.conversation = data.data
             })
+
+            this.isLoading = false
         },
 
         store() {

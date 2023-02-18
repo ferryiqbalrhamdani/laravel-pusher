@@ -32,6 +32,8 @@ class ConversationController extends Controller
              'user_id' => auth()->user()->id,
          ]);
 
+         MessageCreated::dispatch($message);
+
          return response()->json([
              'data' => $message,
              'status' => 'Success'
