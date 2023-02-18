@@ -125,8 +125,19 @@ export default {
         },
 
         store() {
-            axios.post(`api/conversation/${this.conversation.id}/message`, {
-                body: this.newMessage,
+            // axios.post(`api/conversation/${this.conversation.id}/message`, {
+            //     body: this.newMessage,
+            // })
+
+            axios({
+                method: 'post',
+                url: `api/conversation/${this.conversation.id}/message`,
+                data: {
+                    body: this.newMessage,
+                },
+                headers: {
+                    'X-Socket-Id': window.Echo.socketId(),
+                }
             })
 
             this.newMessage = '',
